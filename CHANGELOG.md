@@ -7,15 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- GitHub Actions CI (typecheck, template guard, OAuth discovery)
-- `npm run configure` / `check:template` for fork-friendly setup
-
 ## [0.1.1] - 2026-11-15
 
 ### Added
 
+- GitHub Actions CI (typecheck, template guard, OAuth discovery)
+- `npm run configure` / `check:template` for fork-friendly setup
 - Portable ChatGPT plugin package (`plugins/x-bookmarks`) talking directly to `https://api.x.com/mcp?read_only=true`
 - Repo marketplace entry (`.agents/plugins/marketplace.json`)
 - Bookmarks skill with explicit confirmation for destructive actions

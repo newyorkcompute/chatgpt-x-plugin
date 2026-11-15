@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-x-plugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "DIY ChatGPT plugin for X (Twitter) via api.x.com/mcp — bookmarks, search, and more",
   "type": "module",

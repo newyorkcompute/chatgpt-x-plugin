@@ -1,7 +1,7 @@
 {
   "name": "chatgpt-x-plugin",
   "interface": {
-    "displayName": "X Bookmarks"
+    "displayName": "X for ChatGPT"
   },
   "plugins": [
     {

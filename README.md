@@ -88,10 +88,12 @@ plugins/x-bookmarks/
   plugin.json
   mcp.json                 # template — run npm run configure
   mcp.xurl.fallback.json   # optional desktop stdio bridge
-  assets/logo.png          # optional icon for ZIP uploads
+  assets/                  # logo + composer icon for ZIP uploads
   skills/x-bookmarks/
-scripts/configure.ts
-scripts/verify.ts
+scripts/
+  configure.ts             # writes your Client ID into the manifests
+  verify.ts                # OAuth discovery + live MCP check
+  check-template.ts        # CI guard: manifests keep placeholders
 ```
 
 ## Local verify
@@ -170,25 +172,6 @@ There is no way to share a personal plugin install so others use it without publ
 - [OpenAI: Custom MCP servers](https://help.openai.com/en/articles/12584461)
 - [X MCP docs](https://docs.x.com/tools/mcp)
 - [xdevplatform/xurl](https://github.com/xdevplatform/xurl)
-
-## Making this repo public
-
-The GitHub repo may start **private**. When you open-source it:
-
-1. GitHub → **Settings → General → Danger Zone → Change visibility → Public**
-2. Enable **branch protection** on `main` (required reviews / status checks). On free private repos this is locked; **public** (or GitHub Pro) unlocks it. Suggested checks: CI workflow `verify`.
-3. Confirm the CI badge above turns green on the first public run.
-
-```bash
-# after public — example protection via gh (adjust as needed)
-gh api -X PUT repos/newyorkcompute/chatgpt-x-plugin/branches/main/protection \
-  -f required_status_checks='{"strict":true,"contexts":["Verify"]}' \
-  -F enforce_admins=false \
-  -f required_pull_request_reviews='{"required_approving_review_count":0}' \
-  -F restrictions=null \
-  -F allow_force_pushes=false \
-  -F allow_deletions=false
-```
 
 ## License
 

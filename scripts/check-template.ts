@@ -26,8 +26,6 @@ function main(): void {
       continue;
     }
 
-    // Heuristic: X OAuth2 client IDs are often base64-ish and end with ":"
-    // or include ":MTpjaQ" style suffixes. Flag non-placeholder clientId values.
     const clientIdMatches = [
       ...text.matchAll(/"clientId"\s*:\s*"([^"]+)"/g),
       ...text.matchAll(/"CLIENT_ID"\s*:\s*"([^"]+)"/g),
