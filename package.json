@@ -1,0 +1,42 @@
+{
+  "name": "chatgpt-x-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DIY ChatGPT plugin for X (Twitter) via api.x.com/mcp — bookmarks, search, and more",
+  "type": "module",
+  "scripts": {
+    "configure": "tsx scripts/configure.ts",
+    "check:template": "tsx scripts/check-template.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "verify": "tsx scripts/verify.ts",
+    "verify:discovery": "tsx scripts/verify.ts --discovery-only",
+    "ci": "npm run typecheck && npm run check:template && npm run verify:discovery"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newyorkcompute/chatgpt-x-plugin.git"
+  },
+  "keywords": [
+    "chatgpt",
+    "plugin",
+    "mcp",
+    "x",
+    "twitter",
+    "bookmarks"
+  ],
+  "author": "newyorkcompute",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/newyorkcompute/chatgpt-x-plugin/issues"
+  },
+  "homepage": "https://github.com/newyorkcompute/chatgpt-x-plugin#readme",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "@types/node": "^24.10.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

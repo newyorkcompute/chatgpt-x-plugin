@@ -1,0 +1,30 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "x": {
+      "type": "streamable-http",
+      "url": "https://api.x.com/mcp?read_only=true",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "provided",
+              "clientId": "YOUR_X_APP_CLIENT_ID",
+              "tokenEndpointAuthMethod": "client_secret_basic"
+            },
+            "authorizationUrl": "https://x.com/i/oauth2/authorize",
+            "tokenUrl": "https://api.x.com/2/oauth2/token",
+            "resource": "https://api.x.com/mcp",
+            "defaultScopes": [
+              "tweet.read",
+              "users.read",
+              "bookmark.read",
+              "offline.access"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

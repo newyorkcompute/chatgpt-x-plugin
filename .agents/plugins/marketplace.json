@@ -1,0 +1,20 @@
+{
+  "name": "chatgpt-x-plugin",
+  "interface": {
+    "displayName": "X Bookmarks"
+  },
+  "plugins": [
+    {
+      "name": "x-bookmarks",
+      "source": {
+        "source": "local",
+        "path": "./plugins/x-bookmarks"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
