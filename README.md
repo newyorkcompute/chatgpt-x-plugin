@@ -17,6 +17,21 @@ No custom proxy server. Each person uses **their own** X developer app + ChatGPT
 
 > Community project — not affiliated with or endorsed by X Corp. or OpenAI. X and ChatGPT are trademarks of their respective owners.
 
+## Why this is different
+
+Most ways of getting X into ChatGPT put something in the middle:
+
+| Approach | Examples | Trade-off |
+|----------|----------|-----------|
+| Hosted middleman | AnythingMCP, Composio, Tweetsmash | Your X login and data pass through a third party |
+| Local bridge | X's own `xurl mcp` | stdio only — no ChatGPT web or iPhone |
+| Self-hosted + tunnel | x-signal, x-mcp-server | Run Docker or a server, plus OpenAI's Secure MCP Tunnel |
+| Desktop app | SomedayX | ChatGPT for Mac only |
+
+This repo connects ChatGPT **straight to X's official MCP** with a normal *Sign in with X*. Nothing to host, and it works on ChatGPT web and iPhone.
+
+[X's MCP docs](https://docs.x.com/tools/mcp) say `api.x.com/mcp` doesn't advertise MCP OAuth discovery and recommend the `xurl` bridge. As of November 2026 it does advertise it — `npm run verify:discovery` checks the live metadata. The one real gap is that X has no dynamic client registration, so you register your own X app and give ChatGPT its Client ID and Secret. The steps below walk through it.
+
 ## Quick start (your own install)
 
 1. **Clone / fork** this repo.
