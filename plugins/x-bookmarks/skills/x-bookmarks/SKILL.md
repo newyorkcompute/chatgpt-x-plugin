@@ -45,6 +45,10 @@ With `?read_only=true`, write tools should not appear. If a write tool still app
 - Posting, liking, following, or other social actions.
 - App-only Bearer tokens (no user context → no personal bookmarks).
 
-## Cost note
+## Cost
 
-Each tool call hits the X API under the user's pay-per-use credits. Prefer one paginated bookmarks fetch over many tiny calls.
+X bills the user's pay-per-use credits **per post returned** (about half a cent per post at the time of writing), so reading 300 bookmarks costs roughly $1.50.
+
+- For "find that bookmark about …", start with the most recent page and stop paginating once you find it.
+- Before reading more than ~100 bookmarks (e.g. "summarize all my bookmarks"), tell the user the approximate cost and ask whether to continue.
+- `get_usage_credits` returns the remaining balance if the user asks about cost.

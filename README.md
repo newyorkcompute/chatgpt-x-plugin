@@ -70,12 +70,15 @@ With `?read_only=true`, X advertises ~59 read tools. What actually works depends
 
 | Capability | Notes |
 |------------|--------|
-| **Bookmarks** | Needs `bookmark.read` — PoC success path |
-| **Search / posts / profiles** | Often works with `tweet.read` + `users.read` |
+| **Bookmarks** | Needs `bookmark.read` — verified |
+| **Search posts + X news** | `tweet.read` + `users.read` — verified |
+| **Profiles, a user’s posts, trends** | Same scopes; expected to work |
 | **Likes, Lists, Spaces, …** | Need matching scopes (e.g. `like.read`) + re-auth |
 | **X Chat** | Tools exist; message bodies are E2E encrypted without local keys |
 
-The bundled skill focuses on bookmarks; other tools come from X’s MCP.
+Two bundled skills guide ChatGPT: [`x-bookmarks`](plugins/x-bookmarks/skills/x-bookmarks/SKILL.md) and [`x-search`](plugins/x-bookmarks/skills/x-search/SKILL.md). X’s MCP renders post and news cards in ChatGPT on its own.
+
+**Cost in practice:** X bills about **half a cent per post returned**. A search is a few cents; reading 300 bookmarks is about $1.50. The skills keep result counts small and ask before large scans.
 
 ## Architecture
 
@@ -104,7 +107,9 @@ plugins/x-bookmarks/
   mcp.json                 # template — run npm run configure
   mcp.xurl.fallback.json   # optional desktop stdio bridge
   assets/                  # logo + composer icon for ZIP uploads
-  skills/x-bookmarks/
+  skills/
+    x-bookmarks/           # list, search, and page through bookmarks
+    x-search/              # posts, news, profiles, trends
 scripts/
   configure.ts             # writes your Client ID into the manifests
   verify.ts                # OAuth discovery + live MCP check
@@ -171,6 +176,7 @@ There is no way to share a personal plugin install so others use it without publ
 | Local `get_users_bookmarks` via MCP | Pass |
 | ChatGPT Plus custom MCP (web) | Pass |
 | Bookmarks + search in ChatGPT | Pass |
+| X news search in ChatGPT | Pass |
 | ChatGPT iOS (web-created plugin) | Pass |
 | Desktop marketplace install | Pending |
 

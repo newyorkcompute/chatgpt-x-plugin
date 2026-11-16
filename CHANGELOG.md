@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-15
+
+### Added
+
+- `x-search` skill for posts, X news, profiles, and trends
+
+### Changed
+
+- `x-bookmarks` skill now warns about per-post cost and asks before reading more than ~100 bookmarks
+- README documents real-world cost (about half a cent per post returned) and verified news search
+
 ## [0.1.1] - 2026-11-15
 
 ### Added
