@@ -7,10 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-15
+
 ### Added
 
+- `x-setup` onboarding skill: confirms the X connection, shows remaining credits, explains cost, and suggests prompts
+- `npm run package`: builds the ChatGPT upload ZIP from a ChatGPT export plus this repo's skills, interface, and icons
+- `brandColor` in the plugin interface
 - Biome lint and format check (`npm run lint`) in CI
-- `npm run validate`: manifests against the Agent Plugins schemas, the OpenAI OAuth block against OpenAI's documented fields, and skill frontmatter
+- `npm run validate`: manifests against the Agent Plugins schemas, the OpenAI OAuth block against OpenAI's documented fields, skill frontmatter, and referenced paths
+
+### Changed
+
+- `mcp.json` no longer hard-codes OAuth endpoints; X's OAuth discovery supplies them (checked in CI)
+- Starter prompts now cover bookmarks, search, and profiles
+- README: desktop update and Codex tool-limit instructions
 
 ## [0.2.0] - 2026-11-15
 

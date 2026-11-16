@@ -55,6 +55,7 @@ npm run configure    # writes CLIENT_ID into plugins/x-bookmarks/mcp.json
    - Scopes: `tweet.read` `users.read` `bookmark.read` `offline.access`
    - Register the **exact** Callback URL ChatGPT shows on your X app, then finish OAuth
 5. Install the plugin → ask: *List my latest X bookmarks*
+6. Optional: add the skills, name, and icon with `npm run package` — see [Adding the skills, name, and icon](#adding-the-skills-name-and-icon-to-your-chatgpt-plugin)
 
 **Cost:** ChatGPT plan + your own X API pay-per-use credits. Friends using this guide burn **their** credits, not yours.
 
@@ -76,7 +77,7 @@ With `?read_only=true`, X advertises ~59 read tools. What actually works depends
 | **Likes, Lists, Spaces, …** | Need matching scopes (e.g. `like.read`) + re-auth |
 | **X Chat** | Tools exist; message bodies are E2E encrypted without local keys |
 
-Two bundled skills guide ChatGPT: [`x-bookmarks`](plugins/x-bookmarks/skills/x-bookmarks/SKILL.md) and [`x-search`](plugins/x-bookmarks/skills/x-search/SKILL.md). X’s MCP renders post and news cards in ChatGPT on its own.
+Bundled skills guide ChatGPT: [`x-bookmarks`](plugins/x-bookmarks/skills/x-bookmarks/SKILL.md), [`x-search`](plugins/x-bookmarks/skills/x-search/SKILL.md), and the onboarding skill [`x-setup`](plugins/x-bookmarks/skills/x-setup/SKILL.md), which runs after install to check the connection and explain cost. X’s MCP renders post and news cards in ChatGPT on its own.
 
 **Cost in practice:** X bills about **half a cent per post returned**. A search is a few cents; reading 300 bookmarks is about $1.50. The skills keep result counts small and ask before large scans.
 
@@ -110,8 +111,10 @@ plugins/x-bookmarks/
   skills/
     x-bookmarks/           # list, search, and page through bookmarks
     x-search/              # posts, news, profiles, trends
+    x-setup/               # onboarding: checks the connection, credits, and cost
 scripts/
   configure.ts             # writes your Client ID into the manifests
+  package.ts               # builds the ChatGPT upload ZIP
   verify.ts                # OAuth discovery + live MCP check
   check-template.ts        # CI guard: manifests keep placeholders
   validate-manifests.ts    # CI: manifest schemas + skill frontmatter
@@ -150,15 +153,32 @@ codex plugin marketplace add newyorkcompute/chatgpt-x-plugin
 
 Or add the GitHub URL in ChatGPT desktop. Plugins with `mcp.json` may show as **Desktop only**; web/iOS users should use **Add custom MCP server** as above.
 
-### Updating the ChatGPT plugin icon
+To pick up a new version on desktop, run `codex plugin marketplace upgrade` and restart the ChatGPT desktop app.
 
-Personal custom MCP plugins often have no icon picker after create:
+To limit which X tools Codex may call (for example, bookmarks only), add this to `~/.codex/config.toml`:
 
-1. `...` → **Download plugin ZIP**
-2. Add `assets/logo.png` + set `interface.logo` / `composerIcon` in `.codex-plugin/plugin.json`
-3. `...` → **Upload new version**
+```toml
+[plugins."x-bookmarks".mcp_servers.x]
+enabled_tools = ["get_users_me", "get_users_bookmarks", "get_users_bookmark_folders", "get_users_bookmarks_by_folder_id"]
+```
 
-This repo’s [`plugins/x-bookmarks/assets/`](plugins/x-bookmarks/assets/) is a starting point. The included mark resembles X’s logo — fine for personal use; for a **public** directory listing, use an original icon (trademark).
+### Adding the skills, name, and icon to your ChatGPT plugin
+
+A plugin created with **Add custom MCP server** starts with just the connection. To add this repo's skills, display name, starter prompts, and icon — and to update them later — upload a ZIP built from the repo:
+
+1. ChatGPT → **Plugins** → your plugin → `...` → **Download plugin ZIP**
+2. Build the upload ZIP:
+
+   ```bash
+   npm run package -- ~/Downloads/plugin.zip
+   ```
+
+   This keeps ChatGPT's connection file and internal plugin name from the download, takes everything else from [`plugins/x-bookmarks/`](plugins/x-bookmarks/), and bumps the patch version. Pass `--version 1.2.3` to pick a version yourself.
+3. `...` → **Upload new version** → `dist/x-for-chatgpt-v<version>.zip`
+
+Pushing to GitHub doesn't update ChatGPT — repeat these steps after you change a skill, the description, or an icon.
+
+The included icon resembles X’s logo — fine for personal use; for a **public** directory listing, use an original icon (trademark).
 
 ## Sharing with friends
 

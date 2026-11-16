@@ -159,14 +159,27 @@ function validateMarketplace(): string[] {
 
 function validateAssets(pluginDir: string): void {
   const manifest = readJson(`${pluginDir}/plugin.json`) as {
-    extensions?: { "com.openai"?: { interface?: Record<string, unknown> } };
+    extensions?: {
+      "com.openai"?: { onboardingSkill?: unknown; interface?: Record<string, unknown> };
+    };
   };
-  const iface = manifest.extensions?.["com.openai"]?.interface ?? {};
-  for (const key of ["logo", "composerIcon"] as const) {
-    const ref = iface[key];
-    if (typeof ref === "string" && !existsSync(resolve(ROOT, pluginDir, ref))) {
-      errors.push(`${pluginDir}/plugin.json: interface.${key} points to missing ${ref}`);
+  const openai = manifest.extensions?.["com.openai"] ?? {};
+  const refs: Array<[string, unknown]> = [
+    ["onboardingSkill", openai.onboardingSkill],
+    ["interface.logo", openai.interface?.logo],
+    ["interface.composerIcon", openai.interface?.composerIcon],
+  ];
+  for (const [key, ref] of refs) {
+    if (ref === undefined) continue;
+    if (typeof ref !== "string" || !ref.startsWith("./")) {
+      errors.push(`${pluginDir}/plugin.json: ${key} must be a path starting with ./`);
+    } else if (!existsSync(resolve(ROOT, pluginDir, ref))) {
+      errors.push(`${pluginDir}/plugin.json: ${key} points to missing ${ref}`);
     }
+  }
+  const brandColor = openai.interface?.brandColor;
+  if (brandColor !== undefined && !/^#[0-9A-Fa-f]{6}$/.test(String(brandColor))) {
+    errors.push(`${pluginDir}/plugin.json: interface.brandColor must be a hex color like #000000`);
   }
 }
 

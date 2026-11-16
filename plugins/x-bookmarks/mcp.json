@@ -13,9 +13,6 @@
               "clientId": "YOUR_X_APP_CLIENT_ID",
               "tokenEndpointAuthMethod": "client_secret_basic"
             },
-            "authorizationUrl": "https://x.com/i/oauth2/authorize",
-            "tokenUrl": "https://api.x.com/2/oauth2/token",
-            "resource": "https://api.x.com/mcp",
             "defaultScopes": ["tweet.read", "users.read", "bookmark.read", "offline.access"]
           }
         }

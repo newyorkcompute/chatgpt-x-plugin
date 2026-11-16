@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "x-bookmarks",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Connect ChatGPT to your X account via X's hosted MCP — bookmarks, search, and profiles.",
   "author": {
     "name": "New York Compute",
@@ -13,6 +13,7 @@
   "keywords": ["x", "twitter", "bookmarks", "mcp", "chatgpt"],
   "extensions": {
     "com.openai": {
+      "onboardingSkill": "./skills/x-setup/SKILL.md",
       "interface": {
         "displayName": "X for ChatGPT",
         "shortDescription": "Read bookmarks, search posts, and look up profiles on X",
@@ -21,12 +22,13 @@
         "category": "Productivity",
         "capabilities": ["Read"],
         "websiteURL": "https://github.com/newyorkcompute/chatgpt-x-plugin",
+        "brandColor": "#000000",
         "logo": "./assets/logo.png",
         "composerIcon": "./assets/icon.png",
         "defaultPrompt": [
-          "List my latest X bookmarks",
-          "Search X for recent posts about AI",
-          "Find my X bookmarks about design"
+          "Find my X bookmarks about design",
+          "What are people on X saying about AI today?",
+          "What has @OpenAI posted this week?"
         ]
       }
     }
