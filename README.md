@@ -114,6 +114,7 @@ scripts/
   configure.ts             # writes your Client ID into the manifests
   verify.ts                # OAuth discovery + live MCP check
   check-template.ts        # CI guard: manifests keep placeholders
+  validate-manifests.ts    # CI: manifest schemas + skill frontmatter
 ```
 
 ## Local verify

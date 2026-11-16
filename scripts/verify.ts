@@ -10,7 +10,7 @@
  * Discovery-only mode needs no token.
  */
 
-import { readFileSync, existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
@@ -42,12 +42,7 @@ const MCP_RESOURCE = "https://api.x.com/mcp";
 const PRM_URL = "https://api.x.com/.well-known/oauth-protected-resource";
 const AS_URL = "https://api.x.com/.well-known/oauth-authorization-server";
 
-const EXPECTED_SCOPES = [
-  "tweet.read",
-  "users.read",
-  "bookmark.read",
-  "offline.access",
-] as const;
+const EXPECTED_SCOPES = ["tweet.read", "users.read", "bookmark.read", "offline.access"] as const;
 
 type Json = Record<string, unknown>;
 
@@ -108,10 +103,7 @@ async function verifyDiscovery(): Promise<void> {
     as.authorization_endpoint === "https://x.com/i/oauth2/authorize",
     "unexpected authorization_endpoint",
   );
-  assert(
-    as.token_endpoint === "https://api.x.com/2/oauth2/token",
-    "unexpected token_endpoint",
-  );
+  assert(as.token_endpoint === "https://api.x.com/2/oauth2/token", "unexpected token_endpoint");
 
   const pkce = asStringArray(as.code_challenge_methods_supported);
   assert(pkce.includes("S256"), "AS must advertise S256 PKCE for ChatGPT");
@@ -133,9 +125,7 @@ async function verifyDiscovery(): Promise<void> {
   );
 
   console.log("\nDiscovery checks passed.");
-  console.log(
-    "Implication: ChatGPT must use a predefined (provided) OAuth client — no DCR/CIMD.",
-  );
+  console.log("Implication: ChatGPT must use a predefined (provided) OAuth client — no DCR/CIMD.");
 }
 
 function extractText(result: unknown): string {
@@ -184,9 +174,7 @@ function pickBookmarkTool(
     if (hit) return hit;
   }
   return tools.find(
-    (t) =>
-      /bookmark/i.test(t.name) &&
-      !/(add|create|delete|remove|folder)/i.test(t.name),
+    (t) => /bookmark/i.test(t.name) && !/(add|create|delete|remove|folder)/i.test(t.name),
   );
 }
 

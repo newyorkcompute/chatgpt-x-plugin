@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Biome lint and format check (`npm run lint`) in CI
+- `npm run validate`: manifests against the Agent Plugins schemas, the OpenAI OAuth block against OpenAI's documented fields, and skill frontmatter
+
 ## [0.2.0] - 2026-11-15
 
 ### Added

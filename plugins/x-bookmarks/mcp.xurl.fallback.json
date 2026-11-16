@@ -4,12 +4,7 @@
     "x": {
       "type": "stdio",
       "command": "npx",
-      "args": [
-        "-y",
-        "@xdevplatform/xurl",
-        "mcp",
-        "https://api.x.com/mcp?read_only=true"
-      ],
+      "args": ["-y", "@xdevplatform/xurl", "mcp", "https://api.x.com/mcp?read_only=true"],
       "env": {
         "CLIENT_ID": "YOUR_X_APP_CLIENT_ID",
         "CLIENT_SECRET": "YOUR_X_APP_CLIENT_SECRET"
