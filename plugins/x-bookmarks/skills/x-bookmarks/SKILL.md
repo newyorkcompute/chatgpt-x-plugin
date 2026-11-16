@@ -1,6 +1,6 @@
 ---
 name: x-bookmarks
-description: List and search the user's personal X (Twitter) bookmarks via X's hosted MCP. Use when the user asks about their bookmarks, saved posts, or bookmark folders.
+description: List and search the user's personal X (Twitter) bookmarks via X's hosted MCP. Use when the user asks about their bookmarks, saved posts, or bookmark folders. For searching public posts on X, use the x-search skill instead.
 ---
 
 # X Bookmarks
@@ -23,12 +23,21 @@ If `tools/list` shows different names, prefer the live names and treat this tabl
 ## Workflow: list or search bookmarks
 
 1. Call `get_users_me` once and keep the returned user `id` (required by bookmark tools).
-2. Call `get_users_bookmarks` with `{ "id": "<that user id>" }`. Paginate with whatever cursor / next-token field the tool returns until you have enough results or the user asks to stop.
+2. Call `get_users_bookmarks` with `{ "id": "<that user id>" }`. Paginate with whatever cursor / next-token field the tool returns until you have enough results, within the limits under **Cost**.
 3. If the user names a folder, call `get_users_bookmark_folders`, match the folder, then `get_users_bookmarks_by_folder_id` with the same user `id` plus the folder id.
 4. Filter or search client-side by text, author handle, date, or topic. The hosted MCP does not expose a dedicated bookmark search tool.
 5. Summarize with short excerpts and `https://x.com/.../status/{id}` links. Do not dump raw JSON unless the user asks for it.
+6. If nothing matches, say so and offer to look further back (mentioning the cost) rather than guessing.
 
 Do not call `get_users_bookmarks` without `id` — the server returns `Invalid Request` for `:id`.
+
+## Accuracy
+
+Report only posts the tools returned. Never invent or fill in post text, authors, dates, metrics, or links. When summarizing many bookmarks, say how many you actually read.
+
+## Priority
+
+Explicit user instructions override this skill's defaults — result counts, pagination, the ask-before-large-scans rule, and output format. The confirmation rule below still applies to anything that changes state on X; the user's explicit confirmation is how it is satisfied.
 
 ## Confirmation rule (required)
 
@@ -41,7 +50,7 @@ With `?read_only=true`, write tools should not appear. If a write tool still app
 
 ## Out of scope
 
-- Direct messages / XChat (not exposed by the hosted X MCP; encrypted chats need local keys).
+- Direct messages / XChat contents (the tools exist, but messages are end-to-end encrypted and unreadable without local keys).
 - Posting, liking, following, or other social actions.
 - App-only Bearer tokens (no user context → no personal bookmarks).
 
