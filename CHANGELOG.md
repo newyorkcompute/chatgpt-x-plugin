@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-11-15
+
+### Changed
+
+- Skills follow OpenAI's instruction-following guidance: explicit user instructions override skill defaults, the model must report only posts the tools returned, and empty results are reported instead of guessed
+- `x-bookmarks` and `x-search` descriptions point at each other so bookmark and public-search requests activate the right skill
+- Corrected the DM note: XChat tools exist, but message contents are end-to-end encrypted
+
+### Added
+
+- Skill test checklist in `CONTRIBUTING.md`
+
 ## [0.3.0] - 2026-11-15
 
 ### Added

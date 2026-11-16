@@ -1,6 +1,6 @@
 ---
 name: x-search
-description: Search X (Twitter) for posts, news stories, people, and what a specific account has posted via X's hosted MCP. Use when the user asks what people are saying on X, for news or trends on X, or what someone posted.
+description: Search X (Twitter) for posts, news stories, people, and what a specific account has posted via X's hosted MCP. Use when the user asks what people are saying on X, for news or trends on X, or what someone posted. For the user's own bookmarks, use the x-bookmarks skill instead.
 ---
 
 # X Search
@@ -32,6 +32,16 @@ If `tools/list` shows different names, prefer the live names and treat this tabl
 - **Trends** — `get_trends_by_woeid`; ask for a location only if the user implies one.
 
 Link posts as `https://x.com/{username}/status/{id}` (or use the `url` field the tool returns). Do not dump raw JSON unless asked.
+
+If a search returns nothing useful, say so and suggest a broader query or longer time range instead of guessing. If a handle doesn't resolve, ask the user to check it.
+
+## Accuracy
+
+Report only posts, stories, and profiles the tools returned. Never invent or fill in post text, handles, dates, metrics, or links. When you summarize opinions, base them on the posts you actually read and say roughly how many that was.
+
+## Priority
+
+Explicit user instructions override this skill's defaults — result counts, time ranges, and output format. The confirmation rule below still applies to anything that changes state on X.
 
 ## Cost
 
