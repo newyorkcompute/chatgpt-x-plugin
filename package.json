@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-x-plugin",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "DIY ChatGPT plugin for X (Twitter) via api.x.com/mcp — bookmarks, search, and more",
   "type": "module",
@@ -11,6 +11,7 @@
     "lint:fix": "biome check --write .",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "validate": "tsx scripts/validate-manifests.ts",
+    "package": "tsx scripts/package.ts",
     "verify": "tsx scripts/verify.ts",
     "verify:discovery": "tsx scripts/verify.ts --discovery-only",
     "ci": "npm run lint && npm run typecheck && npm run check:template && npm run validate && npm run verify:discovery"
@@ -42,6 +43,7 @@
     "@types/node": "^24.10.1",
     "ajv": "^8.20.0",
     "ajv-formats": "^3.0.1",
+    "fflate": "^0.8.3",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "yaml": "^2.9.1"
