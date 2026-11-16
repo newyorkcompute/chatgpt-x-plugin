@@ -8,10 +8,11 @@ Thanks for helping improve this DIY ChatGPT ↔ X MCP template.
 cp .env.example .env.local   # add your OAuth 2.0 CLIENT_ID / CLIENT_SECRET
 npm install
 npm run configure            # local only — do not commit patched Client IDs
-npm run verify:discovery
-npm run check:template
-npm run typecheck
+npm run ci                   # everything CI runs: lint, typecheck, template guard, manifest validation, OAuth discovery
+npm run lint:fix             # auto-fix formatting and lint issues (Biome)
 ```
+
+`npm run validate` checks `plugin.json` and `mcp.json` against the published Agent Plugins schemas, the OpenAI OAuth block against OpenAI's documented fields, and every `skills/*/SKILL.md` for valid frontmatter whose `name` matches its folder.
 
 Optional full MCP check:
 

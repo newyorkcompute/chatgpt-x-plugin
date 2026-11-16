@@ -23,11 +23,17 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Lint and format
+        run: npx biome ci .
+
       - name: Typecheck
         run: npm run typecheck
 
       - name: Template guard
         run: npm run check:template
+
+      - name: Validate manifests and skills
+        run: npm run validate
 
       - name: OAuth discovery
         run: npm run verify:discovery

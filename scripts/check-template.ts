@@ -47,7 +47,9 @@ function main(): void {
   }
 
   if (failed) {
-    console.error("\nTemplate check failed. Run `git checkout -- plugins/x-bookmarks/mcp*.json` before committing.");
+    console.error(
+      "\nTemplate check failed. Run `git checkout -- plugins/x-bookmarks/mcp*.json` before committing.",
+    );
     process.exitCode = 1;
     return;
   }
